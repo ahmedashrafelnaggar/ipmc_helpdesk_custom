@@ -1,0 +1,136 @@
+<odoo>
+    <report
+            id="incoming_report_id"
+            model="helpdesk.ticket"
+            string="طباعه واردة"
+            report_type="qweb-pdf"
+            name="ipmc_helpdesk_custom.report_helpdesk_template"
+            file="ipmc_helpdesk_custom.report_helpdesk_template"
+            paperformat="ipmc_helpdesk_custom.paperformat_ipmc_report"
+    />
+    <template id="report_helpdesk_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="article o_report_layout_standard" t-att-data-oe-model="doc and doc._name"
+                     t-att-data-oe-id="doc and doc.id">
+                    <link href="/ipmc_helpdesk_customs/static/src/css/help_desk_ticket.css" rel="stylesheet"
+                          type="text/less"/>
+                    <div class="collective" style="    display: flex;     align-items: center;  gap: 10px;">
+
+                        <div class="col-2 mb4 ">
+                            <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)"
+                                 style="max-height: 150px;"
+                                 alt="Logo"/>
+                        </div>
+
+                        <div class="text-center d-flex justify-content-center align-items-center"
+                             style="height: 100vh; font-family: Arial; margin-right:350px;">
+                            <h1> سند مراجعة للمعاملات الواردة لعام
+                                <t t-esc="doc.hijri_year"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="page">
+                        <style>
+                            body {
+                            direction: rtl;
+                            }
+                            h1 {
+                            text-align: right;
+                            }
+                            p {
+                            text-align: right;
+                            }
+
+                            table {
+                            border-collapse: collapse;
+                            width: 100%;
+                            border: 1px solid #b3adad;
+                            padding:5px;
+                            }
+
+
+                            table th {
+                            text-align:center;
+                            border: 1px solid #b3adad;
+                            padding:5px;
+                            background:#f0f0f0;
+                            color:#313030;
+
+                            }
+                            table td{
+                            border: 1px solid #b3adad;
+                            text-align:center;
+                            padding:5px;
+                            background:#ffffff;
+                            color:#313030;
+                            }
+                        </style>
+
+
+                        <br/>
+                        <div class="body" style="padding: 20px;">
+                            <br/>
+                            <table>
+                                <thead>
+                                    <th colspan="10">بيانات المعاملة الواردة</th>
+                                </thead>
+                                <thead style="text-align:center;">
+                                    <th>الجهة</th>
+                                    <th>رقم المعاملة</th>
+                                    <th>تاريخ المعاملة</th>
+                                    <th>نوع الإستلام</th>
+                                    <th>المشفوعات</th>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <t t-esc="doc.partner_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.ref "/>
+                                        </td>
+                                        <td style="  letter-spacing: 1px;">
+                                            <t t-esc="doc.hijri_date"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.tag_ids.name "/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="doc.attachment_count "/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <div class="text-center d-flex justify-content-center align-items-center"
+                             style="height: 100vh; font-family: Arial;">
+                            <h1>الاتصالات الإدارية
+                                <t t-esc="user.company_id.name"/>
+                            </h1>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </t>
+        </t>
+
+
+    </template>
+</odoo>
